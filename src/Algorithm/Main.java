@@ -13,5 +13,16 @@ public class Main {
         int data[] = { 5, 2, 1, 7, 112, 42, 52, 62 };
         HeapSort h = new HeapSort(data);
         System.out.println("Heap Sort ends.");
+
+        BinarySearchTree bst = new BinarySearchTree();
+        bst.insert(5);
+        bst.insert(6);
+        bst.insert(10);
+        bst.insert(2);
+        bst.insert(4);
+        bst.insert(11);
+        bst.insert(13);
+
+        bst.search(10);
     }
 }
