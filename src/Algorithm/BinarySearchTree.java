@@ -29,8 +29,9 @@ public class BinarySearchTree {
         return root;
     }
 
-    public void search(int data) {
-        searchRecursively(root, data);
+    public Node search(int data) {
+        Node node = searchRecursively(root, data);
+        return node;
     }
 
     private Node searchRecursively(Node root, int data) {
@@ -47,5 +48,35 @@ public class BinarySearchTree {
             return searchRecursively(root.left, data);
         }
         return searchRecursively(root.right, data);
+    }
+
+    public Node delete(int data) {
+        Node node = search(data);
+        if (node.left == null && node.right == null) {
+            System.out.println("The node has no child. It is deleted. data: " + node.data);
+            node.data = 0;
+            return node;
+        }
+
+        if (node.left != null && node.right != null) {
+            System.out.println("The node has left and right node. It finds a successor.");
+            node = node.right;
+            System.out.println("The node has left and right node. It finds a successor. data: " + node.data);
+            while (node != null) {
+                if (node.left != null) {
+                    node = node.left;
+                    System.out.println("The node has left and right node. It finds a successor. data: " + node.data);
+                } else {
+                    return node;
+                }
+            }
+        } else if (node.left != null) {
+            node = node.left;
+            System.out.println("The node has left node. The left child becomes it. data: " + node.data);
+        } else {
+            node = node.right;
+            System.out.println("The node has right node. The left child becomes it. data: " + node.data);
+        }
+        return node;
     }
 }
