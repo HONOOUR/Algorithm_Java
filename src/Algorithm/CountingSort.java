@@ -3,6 +3,8 @@ package Algorithm;
 public class CountingSort {
 
     public CountingSort() {
+        int[] A = new int[] {0,2,1,2,2,3,1,1};
+        Count(A, 0, 4);
     }
 
     public void Count(int[] A, int i, int k) {

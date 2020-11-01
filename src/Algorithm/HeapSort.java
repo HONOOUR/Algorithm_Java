@@ -1,7 +1,8 @@
 package Algorithm;
 
 public class HeapSort {
-    public HeapSort(int data[]) {
+    public HeapSort() {
+        int data[] = { 5, 2, 1, 7, 112, 42, 52, 62 };
         int count = data.length -1;
         for (int i = count/2; i >= 0; i--) { //node i's parent node (not leaf node)
             System.out.println("i=" + i);

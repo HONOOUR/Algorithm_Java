@@ -3,7 +3,21 @@ package Algorithm;
 public class BinarySearchTree {
     private static Node root = null;
 
-    public BinarySearchTree() {}
+    public BinarySearchTree() {
+        insert(5);
+        insert(10);
+        insert(6);
+        insert(2);
+        insert(1);
+        insert(4);
+        insert(11);
+        insert(13);
+
+        search(10);
+
+        delete(5);
+        delete(2);
+    }
 
     public void insert(int value) {
         root = insertRecursively(root, value);
