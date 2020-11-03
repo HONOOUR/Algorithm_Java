@@ -20,11 +20,11 @@ public class Node {
         parent = null;
     }
 
-    public Node(int element, Color newColor) {
+    public Node(int element, Color newColor, Node node) {
         data = element;
         left = null;
         right = null;
-        parent = null;
+        parent = node;
         color = newColor;
     }
 }

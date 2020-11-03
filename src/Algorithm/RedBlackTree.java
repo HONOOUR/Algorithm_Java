@@ -2,41 +2,43 @@ package Algorithm;
 
 public class RedBlackTree {
     private static Node root = null;
-    private Node.Color color;
+    private Node parent = null;
 
     public RedBlackTree() {
-        insert(5, color.BLACK);
-        insert(10, color.RED);
-        insert(6, color.BLACK);
-        insert(2, color.RED);
-        insert(1, color.RED);
-        insert(4, color.BLACK);
-        insert(11, color.BLACK);
-        insert(13, color.RED);
+        insert(5, Node.Color.BLACK, parent);
+        insert(10, Node.Color.RED, parent);
+        insert(6, Node.Color.BLACK, parent);
+        insert(2, Node.Color.RED, parent);
+        insert(1, Node.Color.RED, parent);
+        insert(4, Node.Color.BLACK, parent);
+        insert(11, Node.Color.BLACK, parent);
+        insert(13, Node.Color.RED, parent);
     }
 
-    public void insert(int value, Node.Color color) {
-        root = insertRecursively(root, value, color);
+    public void insert(int value, Node.Color color, Node parent) {
+        root = insertRecursively(root, value, color, parent);
     }
 
-    private Node insertRecursively(Node node, int data, Node.Color color ) {
+    private Node insertRecursively(Node node, int data, Node.Color color, Node parent ) {
+        Node currentNode = null;
         if (node == null) {
             System.out.println("A new node is created with data: " + data + " color: " + color);
-            return new Node(data, color);
+            return new Node(data, color, parent);
         }
 
         if (data < node.data) {
             System.out.println("Traversal the left sub tree. the new node data: " + data);
-            node.left = insertRecursively(node.left, data, color);
+            node.left = insertRecursively(node.left, data, color, node);
+            currentNode = node.left;
         } else if (data > node.data) {
             System.out.println("Traversal the right sub tree. the new node data: " + data);
-            node.right = insertRecursively(node.right, data, color);
+            node.right = insertRecursively(node.right, data, color, node);
+            currentNode = node.right;
         } else {
             // data already exists
             return node;
         }
-
-        fixInsert(node);
+        fixInsert(currentNode);
         System.out.println("The root root data: " + root.data);
         return root;
     }
