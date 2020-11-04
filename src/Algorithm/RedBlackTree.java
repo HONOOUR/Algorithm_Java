@@ -44,54 +44,64 @@ public class RedBlackTree {
     }
 
     private void fixInsert(Node newNode) {
-        while (newNode.parent != null && newNode.parent.color == Node.Color.RED) { // Till there is Red-Red violation
-            if (newNode.parent == newNode.parent.parent.left) { // case 1, 2, 3: the parent of newNode is the left child of grandparent
-                Node uncleNode = newNode.parent.parent.right;
-                if (uncleNode.color == Node.Color.RED) { // case 1: uncleNode is RED color
-                    System.out.println("case 1: uncleNode is RED color");
-                    newNode.parent.color = Node.Color.BLACK;
-                    uncleNode.color = Node.Color.BLACK;
-                    newNode.parent.parent.color = Node.Color.RED;
-                    newNode = newNode.parent.parent;
-                } else { // case 2, 3: uncleNode is BLACK color
-                    if (newNode == newNode.parent.right) { // case 2
-                        System.out.println("case 2: uncleNode is BLACK color and new node is right child");
-                        newNode = newNode.parent;
-                        RotateLeft(newNode);
-                    } else { // case 3
-                        System.out.println("case 3: uncleNode is BLACK color and new node is left child");
-                        newNode.parent.color = Node.Color.BLACK;
-                        newNode.parent.parent.color = Node.Color.RED;
-                        RotateRight(newNode);
-                    }
+        try {
+            while (newNode.parent != null && newNode.parent.color == Node.Color.RED) { // Till there is Red-Red violation
+                if(newNode.parent.parent.left == null) {
+                    return;
                 }
-            } else {
-                Node uncleNode = newNode.parent.parent.left;
-                if (uncleNode.color == Node.Color.RED) { // case 4: uncleNode is RED color
-                    System.out.println("case 4: uncleNode is RED color");
-                    newNode.parent.color = Node.Color.BLACK;
-                    uncleNode.color = Node.Color.BLACK;
-                    newNode.parent.parent.color = Node.Color.RED;
-                    newNode = newNode.parent.parent;
-                } else { // case 5, 6: uncleNode is BLACK color
-                    if (newNode == newNode.parent.right) { // case 5
-                        System.out.println("case 5: uncleNode is BLACK color and new node is right child");
-                        newNode = newNode.parent;
-                        RotateLeft(newNode);
-                    } else { // case 6
-                        System.out.println("case 6: uncleNode is BLACK color and new node is left child");
+                if (newNode.parent == newNode.parent.parent.left) { // case 1, 2, 3: the parent of newNode is the left child of grandparent
+                    Node uncleNode = newNode.parent.parent.right;
+                    if (uncleNode.color == Node.Color.RED) { // case 1: uncleNode is RED color
+                        System.out.println("case 1: uncleNode is RED color");
                         newNode.parent.color = Node.Color.BLACK;
+                        uncleNode.color = Node.Color.BLACK;
                         newNode.parent.parent.color = Node.Color.RED;
-                        RotateRight(newNode);
+                        newNode = newNode.parent.parent;
+                    } else { // case 2, 3: uncleNode is BLACK color
+                        if (newNode == newNode.parent.right) { // case 2
+                            System.out.println("case 2: uncleNode is BLACK color and new node is right child");
+                            newNode = newNode.parent;
+                            RotateLeft(newNode);
+                        } else { // case 3
+                            System.out.println("case 3: uncleNode is BLACK color and new node is left child");
+                            newNode.parent.color = Node.Color.BLACK;
+                            newNode.parent.parent.color = Node.Color.RED;
+                            RotateRight(newNode);
+                        }
+                    }
+                } else {
+                    Node uncleNode = newNode.parent.parent.left;
+                    if (uncleNode.color == Node.Color.RED) { // case 4: uncleNode is RED color
+                        System.out.println("case 4: uncleNode is RED color");
+                        newNode.parent.color = Node.Color.BLACK;
+                        uncleNode.color = Node.Color.BLACK;
+                        newNode.parent.parent.color = Node.Color.RED;
+                        newNode = newNode.parent.parent;
+                    } else { // case 5, 6: uncleNode is BLACK color
+                        if (newNode == newNode.parent.right) { // case 5
+                            System.out.println("case 5: uncleNode is BLACK color and new node is right child");
+                            newNode = newNode.parent;
+                            RotateLeft(newNode);
+                        } else { // case 6
+                            System.out.println("case 6: uncleNode is BLACK color and new node is left child");
+                            newNode.parent.color = Node.Color.BLACK;
+                            newNode.parent.parent.color = Node.Color.RED;
+                            RotateRight(newNode);
+                        }
                     }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
         }
         root.color = Node.Color.BLACK;
     }
 
     private void RotateLeft(Node newNode) {
         Node node = newNode.right;
+        if (node.left == null && newNode.parent == null) {
+            return;
+        }
         newNode.right = node.left;
 
         node.parent = newNode.parent;
@@ -108,6 +118,9 @@ public class RedBlackTree {
 
     private void RotateRight(Node newNode) {
         Node node = newNode.left;
+        if (node.left == null && newNode.parent == null) {
+            return;
+        }
         newNode.left = node.right;
 
         node.parent = newNode.parent;
@@ -121,5 +134,4 @@ public class RedBlackTree {
         node.right = newNode;
         newNode.parent = node;
     }
-
 }
